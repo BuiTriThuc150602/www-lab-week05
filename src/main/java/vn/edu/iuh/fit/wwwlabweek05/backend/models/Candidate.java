@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.wwwlabweek05.models;
+package vn.edu.iuh.fit.wwwlabweek05.backend.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,12 +14,13 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "Candidate")
 
@@ -29,21 +30,24 @@ public class Candidate {
   @Column(name = "can_id", length = 20)
   private long id;
   @Column(name = "full_name",length = 255,nullable = false)
+  @NonNull
   private String fullName;
   @Column(name = "dob",nullable = false)
+  @NonNull
   private LocalDate dob;
-  @Column(name = "phone",length = 15,nullable = false,unique = true)
-  private String phone;
-  @Column(name = "email",length = 255,nullable = false,unique = true)
-
-  private String email;
   @JoinColumn(name = "address",nullable = false)
+  @NonNull
   @OneToOne
   private Address address;
+  @Column(name = "phone",length = 15,nullable = false,unique = true)
+  @NonNull
+  private String phone;
+  @Column(name = "email",length = 255,nullable = false,unique = true)
+  @NonNull
+  private String email;
   @OneToMany(mappedBy = "candidate")
   private List<CandidateSkill> candidateSkills;
   @OneToMany(mappedBy = "candidate")
-
   private List<Experience> experiences;
 
 }

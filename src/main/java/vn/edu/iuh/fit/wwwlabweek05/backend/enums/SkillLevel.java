@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.wwwlabweek05.enums;
+package vn.edu.iuh.fit.wwwlabweek05.backend.enums;
 
 public enum SkillLevel {
   BEGINNER(0),

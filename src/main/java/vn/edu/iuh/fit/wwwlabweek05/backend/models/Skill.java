@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.wwwlabweek05.models;
+package vn.edu.iuh.fit.wwwlabweek05.backend.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import vn.edu.iuh.fit.wwwlabweek05.enums.SkillType;
+import vn.edu.iuh.fit.wwwlabweek05.backend.enums.SkillType;
 
 @Entity
 @Table(name = "skill")
