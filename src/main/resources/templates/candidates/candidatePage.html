@@ -47,13 +47,13 @@
     </table>
   </div>
 
-  <div class="list-inline">
+  <div class="container list-inline">
 
-    <div class="list-inline-item border rounded-2" th:if="${candidatePage.totalPages > 0}"
+    <div class="btn btn-outline-success mb-3 " th:if="${candidatePage.totalPages > 0}"
          th:each="pageNumber : ${pageNumbers}">
       <a th:href="@{/candidates(size=${candidatePage.size}, page=${pageNumber})}"
          th:text="${pageNumber}"
-         th:class="${pageNumber==candidatePage.number + 1} ? active"></a>
+         class="text-decoration-none"></a>
     </div>
   </div>
 
