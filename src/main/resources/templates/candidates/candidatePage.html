@@ -13,8 +13,8 @@
           crossorigin="anonymous"></script>
 
 </head>
-<body>
-<div class="container" th:switch="${candidatePage}">
+<body class="img-fluid" style="background-image: url('https://scontent.fsgn5-11.fna.fbcdn.net/v/t39.30808-6/303932604_389853746629576_8916863425007282808_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_ohc=5gVxVshVNmoAX_g5i1E&_nc_ht=scontent.fsgn5-11.fna&oh=00_AfBRjFM6i7h6eZlzkL3A5AJVC4tsgG7uOpzNBh8JxRdxAw&oe=656AB958');object-fit: fill">
+<div class="container bg-white rounded mt-3" th:switch="${candidatePage}">
   <h2 class="text-danger text-center" th:case="null">No Candidate Yet!</h2>
   <div class="container" th:case="*">
     <h2 class="text-center text-info">Candidates</h2>
@@ -47,17 +47,19 @@
     </table>
   </div>
 
-  <div class="container list-inline">
+    <div class="container list-inline">
 
-    <div class="btn btn-outline-success mb-3 " th:if="${candidatePage.totalPages > 0}"
-         th:each="pageNumber : ${pageNumbers}">
-      <a th:href="@{/candidates(size=${candidatePage.size}, page=${pageNumber})}"
-         th:text="${pageNumber}"
-         class="text-decoration-none"></a>
+      <div class="btn btn-outline-success mb-3 " th:if="${candidatePage.totalPages > 0}"
+           th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/candidates(size=${candidatePage.size}, page=${pageNumber})}"
+           th:text="${pageNumber}"
+           class="text-decoration-none"></a>
+      </div>
     </div>
-  </div>
+    <div class="container">
 
-  <br/>
+    </div>
+
 </div>
 
 </body>

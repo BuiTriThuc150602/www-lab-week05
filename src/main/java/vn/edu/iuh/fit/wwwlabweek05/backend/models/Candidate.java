@@ -49,5 +49,9 @@ public class Candidate {
   private List<CandidateSkill> candidateSkills;
   @OneToMany(mappedBy = "candidate")
   private List<Experience> experiences;
+  @OneToOne
+  @JoinColumn(name = "acc_id")
+  @NonNull
+  private Account account;
 
 }

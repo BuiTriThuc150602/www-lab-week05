@@ -13,6 +13,8 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Entity
@@ -20,6 +22,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @ToString
 public class Company {
   @Id
@@ -27,22 +30,33 @@ public class Company {
   @Column(name = "com_id")
   private long id;
   @Column(name = "comp_name",nullable = false)
+  @NonNull
   private String name;
   @Column(name = "about", length = 2000)
   private String about;
   @Column(name = "phone", unique = true)
+  @NonNull
   private String phone;
   @Column(name = "email", unique = true)
+  @NonNull
 
   private String email;
   @Column(name = "web_url", unique = true)
+  @NonNull
 
   private String webURL;
   @OneToOne
   @JoinColumn(name = "address")
+  @NonNull
   private Address address;
   @OneToMany(mappedBy = "company")
   private List<Job> jobs;
+  @OneToMany(mappedBy = "company")
+  private List<Post> posts;
+  @OneToOne
+  @JoinColumn(name = "acc_id", nullable = false)
+  @NonNull
+  private Account account;
 
 
 }
