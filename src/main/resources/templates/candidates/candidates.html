@@ -13,8 +13,8 @@
           crossorigin="anonymous"></script>
 
 </head>
-<body>
-<div class="container" th:switch="${candidates}">
+<body class="img-fluid" style="background-image: url('/images/bg.jpg'); object-fit: cover; ">
+<div class="container bg-white" th:switch="${candidates}">
   <h2 class="text-danger text-center" th:case="null">No Candidate Yet!</h2>
   <div class="container" th:case="*">
     <h2 class="text-center text-info">Candidates</h2>

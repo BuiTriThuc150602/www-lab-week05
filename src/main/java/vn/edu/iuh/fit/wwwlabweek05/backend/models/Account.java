@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import vn.edu.iuh.fit.wwwlabweek05.backend.enums.AccountType;
 
 @Entity
@@ -21,6 +22,7 @@ import vn.edu.iuh.fit.wwwlabweek05.backend.enums.AccountType;
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
+@ToString
 public class Account {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +30,7 @@ public class Account {
   @Column(name = "email", nullable = false)
   @NonNull
   private String email;
-  @Column(name = "password", nullable = false)
+  @Column(name = "password", nullable = false, unique = true)
   @NonNull
   private String password;
   @Column(name = "type")

@@ -11,7 +11,7 @@
           integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
           crossorigin="anonymous"></script>
 </head>
-<body class="img-fluid" style="background-image: url('https://scontent.fsgn5-11.fna.fbcdn.net/v/t39.30808-6/303932604_389853746629576_8916863425007282808_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_ohc=5gVxVshVNmoAX_g5i1E&_nc_ht=scontent.fsgn5-11.fna&oh=00_AfBRjFM6i7h6eZlzkL3A5AJVC4tsgG7uOpzNBh8JxRdxAw&oe=656AB958');object-fit: fill">
+<body class="img-fluid" style="background-image: url('/images/bg.jpg');object-fit: fill">
 <div class="container bg-white rounded mt-3 pt-3 " th:switch="${company}" >
   <h2 class=" text-center text-waning p-5"
       th:case="null"> Login if you want to post !</h2>
@@ -60,6 +60,10 @@
             <label class="form-check-label"
                    th:for="${skill.getId()}"
                    th:text="${skill.getSkillName()}">
+
+            </label><label class="form-check-label"
+                   th:for="${skill.getId()}"
+                   th:text="${skill.getJobSkills().get(1).getSkillLevel().name()}">
 
             </label>
           </div>

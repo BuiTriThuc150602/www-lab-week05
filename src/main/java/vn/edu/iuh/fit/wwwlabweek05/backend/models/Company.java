@@ -12,18 +12,23 @@ import jakarta.persistence.Table;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
+import lombok.ToString.Exclude;
 
 @Entity
 @Table(name = "company")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Getter
+@Setter
 @ToString
+
 public class Company {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,8 +55,10 @@ public class Company {
   @NonNull
   private Address address;
   @OneToMany(mappedBy = "company")
+  @Exclude
   private List<Job> jobs;
   @OneToMany(mappedBy = "company")
+  @Exclude
   private List<Post> posts;
   @OneToOne
   @JoinColumn(name = "acc_id", nullable = false)

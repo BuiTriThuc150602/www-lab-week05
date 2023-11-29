@@ -2,6 +2,7 @@ package vn.edu.iuh.fit.wwwlabweek05.backend.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,7 +30,7 @@ public class Candidate {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "can_id", length = 20)
   private long id;
-  @Column(name = "full_name",length = 255,nullable = false)
+  @Column(name = "full_name",nullable = false)
   @NonNull
   private String fullName;
   @Column(name = "dob",nullable = false)
@@ -42,12 +43,12 @@ public class Candidate {
   @Column(name = "phone",length = 15,nullable = false,unique = true)
   @NonNull
   private String phone;
-  @Column(name = "email",length = 255,nullable = false,unique = true)
+  @Column(name = "email",nullable = false,unique = true)
   @NonNull
   private String email;
-  @OneToMany(mappedBy = "candidate")
+  @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER)
   private List<CandidateSkill> candidateSkills;
-  @OneToMany(mappedBy = "candidate")
+  @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER)
   private List<Experience> experiences;
   @OneToOne
   @JoinColumn(name = "acc_id")

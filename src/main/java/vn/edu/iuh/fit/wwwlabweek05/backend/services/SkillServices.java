@@ -5,12 +5,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.wwwlabweek05.backend.models.Skill;
+import vn.edu.iuh.fit.wwwlabweek05.backend.repositories.JobSkillRepository;
 import vn.edu.iuh.fit.wwwlabweek05.backend.repositories.SkillRepository;
 
 @Service
 public class SkillServices {
   @Autowired
   private SkillRepository skillRepository;
+  @Autowired
+  private JobSkillRepository jobSkillRepository;
   public List<Skill> getSkills(){
     return skillRepository.findAll();
   }
@@ -22,4 +25,5 @@ public class SkillServices {
   public Optional<Skill> getSkill(String skillName){
     return skillRepository.findBySkillNameIgnoreCase(skillName);
   }
+
 }

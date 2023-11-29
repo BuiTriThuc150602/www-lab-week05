@@ -7,11 +7,76 @@
         rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
         crossorigin="anonymous">
+  <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+  />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
           crossorigin="anonymous"></script>
+  <script
+      src="https://kit.fontawesome.com/d5a87402bd.js"
+      crossorigin="anonymous"
+  ></script>
 </head>
-<body class="img-fluid" style="background-image: url('https://scontent.fsgn5-11.fna.fbcdn.net/v/t39.30808-6/303932604_389853746629576_8916863425007282808_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_ohc=5gVxVshVNmoAX_g5i1E&_nc_ht=scontent.fsgn5-11.fna&oh=00_AfBRjFM6i7h6eZlzkL3A5AJVC4tsgG7uOpzNBh8JxRdxAw&oe=656AB958');object-fit: fill">
+<body class="img-fluid" style="background-image: url('/images/bg.jpg');object-fit: fill">
+<nav class="navbar navbar-expand-sm navbar-light bg-info fixed-top ">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/home-page"><img th:src="@{/images/logo.jpg}" alt="Logo"
+                                          style="width:40px;" class="rounded-pill"></a>
+    <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapsibleNavbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="collapsibleNavbar" class="collapse navbar-collapse">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#"
+          ><i class="fa-solid fa-house mx-2"></i>Home</a
+          >
+        </li>
+
+        <li class="nav-item" th:if="${candidateLogin}">
+          <a class="nav-link" href="#"
+          ><i class="fa-regular fa-user mx-2"></i>Profile</a
+          >
+        </li><li class="nav-item" th:if="${candidateLogin}">
+          <a class="nav-link" href="#"
+          ><i class="fa-solid fa-envelope mx-2"></i>Your Job</a
+          >
+        </li>
+        <li class="nav-item" th:if="${companyLogin}">
+          <a class="nav-link" href="#"
+          ><i class="fa-regular fa-user mx-2"></i>Candidate</a
+          >
+        </li>
+        <li class="nav-item" th:if="${companyLogin}">
+          <a class="nav-link" href="#"
+          ><i class="fa-solid fa-paper-plane mx-2"></i>Post Job</a
+          >
+        </li><li class="nav-item" th:if="${companyLogin}">
+          <a class="nav-link" href="#"
+          ><i class="fa-solid fa-list-check mx-2"></i>Post Management</a
+          >
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container mt-5 pt-3 border rounded bg-white" th:if="${candidateLogin != null}">
+  <h2>Thông tin của ứng viên:</h2>
+  <p th:text="${candidateLogin.getFullName()}"></p>
+</div>
+<div class="container mt-5 pt-3 border rounded bg-white" th:if="${companyLogin != null}">
+  <h2>Thông tin của công ty:</h2>
+  <p th:text="${companyLogin.getName()}"></p>
+</div>
+
 
 </body>
 </html>

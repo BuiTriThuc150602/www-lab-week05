@@ -12,29 +12,40 @@ import jakarta.persistence.Table;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table(name = "job")
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@RequiredArgsConstructor
+@Getter
+@Setter
 public class Job {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "job_id")
   private long id;
-  @Column(name = "job_name")
-  private String name;
-  @Column(name = "job_desc")
 
+  @Column(name = "job_name")
+  @NonNull
+  private String name;
+
+  @Column(name = "job_desc")
+  @NonNull
   private String description;
+
   @ManyToOne
   @JoinColumn(name = "company", nullable = false)
+  @NonNull
   private Company company;
+
   @OneToMany(mappedBy = "job")
   private List<JobSkill> jobSkills;
 
