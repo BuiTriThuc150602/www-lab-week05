@@ -83,17 +83,17 @@ public class AccountController {
         postList = new ArrayList<>();
         if (candidateSkills != null) {
           for (CandidateSkill candidateSkill : candidateSkills) {
-            System.out.println(candidateSkill);
             postList.addAll(postServices.getPostsBySkill(candidateSkill.getSkill()));
           }
 
         }
         model.addAttribute("postList", postList);
+        System.out.println(postList);
       } else if (company != null) {
         model.addAttribute("candidateLogin", null);
         model.addAttribute("companyLogin", company);
         postList = new ArrayList<>(postServices.getPostsByCompany(company));
-        session.setAttribute("postList", postList);
+        model.addAttribute("postList", postList);
       }
       return "home";
     } else {

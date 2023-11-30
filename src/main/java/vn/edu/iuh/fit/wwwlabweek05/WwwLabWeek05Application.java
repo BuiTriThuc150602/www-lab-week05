@@ -3,6 +3,7 @@ package vn.edu.iuh.fit.wwwlabweek05;
 import com.neovisionaries.i18n.CountryCode;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import vn.edu.iuh.fit.wwwlabweek05.backend.enums.SkillType;
 import vn.edu.iuh.fit.wwwlabweek05.backend.models.Account;
 import vn.edu.iuh.fit.wwwlabweek05.backend.models.Address;
 import vn.edu.iuh.fit.wwwlabweek05.backend.models.Candidate;
+import vn.edu.iuh.fit.wwwlabweek05.backend.models.CandidateSkill;
 import vn.edu.iuh.fit.wwwlabweek05.backend.models.Company;
 import vn.edu.iuh.fit.wwwlabweek05.backend.models.Job;
 import vn.edu.iuh.fit.wwwlabweek05.backend.models.JobSkill;
@@ -23,6 +25,7 @@ import vn.edu.iuh.fit.wwwlabweek05.backend.models.Skill;
 import vn.edu.iuh.fit.wwwlabweek05.backend.repositories.AccountRepository;
 import vn.edu.iuh.fit.wwwlabweek05.backend.repositories.AddressRepository;
 import vn.edu.iuh.fit.wwwlabweek05.backend.repositories.CandidateRepository;
+import vn.edu.iuh.fit.wwwlabweek05.backend.repositories.CandidateSkillRepository;
 import vn.edu.iuh.fit.wwwlabweek05.backend.repositories.CompanyRepository;
 import vn.edu.iuh.fit.wwwlabweek05.backend.repositories.JobRepository;
 import vn.edu.iuh.fit.wwwlabweek05.backend.repositories.JobSkillRepository;
@@ -37,6 +40,8 @@ public class WwwLabWeek05Application {
 
   @Autowired
   private CandidateRepository candidateRepository;
+  @Autowired
+  private CandidateSkillRepository candidateSkillRepository;
   @Autowired
   private AddressRepository addressRepository;
   @Autowired
@@ -86,9 +91,16 @@ public class WwwLabWeek05Application {
       addressRepository.save(addCompany);
 
       //candidate, company
-      candidateRepository.save(
-          new Candidate("Bui Tri Thuc", LocalDate.of(2002, 6, 15), addCandidate, "0963015348",
-              accCandidate.getEmail(), accCandidate));
+      Candidate thuc = new Candidate("Bui Tri Thuc", LocalDate.of(2002, 6, 15), addCandidate, "0963015348",
+          accCandidate.getEmail(), accCandidate);
+      candidateRepository.save(thuc);
+
+      CandidateSkill skillJava = new CandidateSkill(thuc,sk1,SkillLevel.MASTER,"Main skill");
+      CandidateSkill skillMongo = new CandidateSkill(thuc,sk6,SkillLevel.ADVANCED,"Database skill");
+      CandidateSkill skillWeb = new CandidateSkill(thuc,sk3,SkillLevel.BEGINNER,"security spring boost skill");
+      candidateSkillRepository.saveAll(List.of(skillJava,skillMongo,skillWeb));
+      thuc.setCandidateSkills(List.of(skillJava,skillMongo,skillWeb));
+      candidateRepository.save(thuc);
       companyRepository.save(
           new Company("AWS Software Engineer", "028998823", accCompany.getEmail(), "www.aws.vn",
               addCompany, accCompany));

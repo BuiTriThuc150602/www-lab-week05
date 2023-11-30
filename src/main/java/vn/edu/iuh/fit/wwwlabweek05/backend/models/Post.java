@@ -39,7 +39,7 @@ public class Post {
   @Column(name = "publish_at", nullable = false)
   private LocalDate publishAt;
   @NonNull
-  @Column(name = "content", nullable = false)
+  @Column(name = "content", nullable = false, length = 2000)
   private String content;
   @NonNull
   @OneToOne
