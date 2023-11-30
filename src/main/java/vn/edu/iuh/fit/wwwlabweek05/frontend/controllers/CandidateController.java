@@ -1,5 +1,6 @@
 package vn.edu.iuh.fit.wwwlabweek05.frontend.controllers;
 
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,9 +25,10 @@ public class CandidateController {
     return "candidates/candidates";
   }
   @GetMapping("/candidates")
-  public String showCandidateListWithPaging(Model model,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+  public String showCandidateListWithPaging(Model model,@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, HttpSession session){
     int currentPage = page.orElse(1);
     int pageSize = size.orElse(15);
+    model.addAttribute(session.getAttribute("companyLogin"));
     Page<Candidate> candidatePage = candidateServices.findAll(currentPage-1,pageSize,"id","asc");
     model.addAttribute("candidatePage",candidatePage);
     int totalPages = candidatePage.getTotalPages();
