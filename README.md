@@ -47,3 +47,6 @@
 
 # Các chức năng khác chưa được cập nhật
 
+# Cơ sở dữ liệu :
+![image](https://github.com/BuiTriThuc150602/www-lab-week05/assets/125670011/774ed9a9-9abf-426f-adc8-cb9594131f60)
+
