@@ -1,117 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8"/>
   <title>Posting Job</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-        crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-          crossorigin="anonymous"></script>
+  <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+  />
+  <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+  ></script>
 </head>
-<body class="img-fluid" style="background-image: url('/images/bg.jpg');object-fit: fill">
-<div class="container bg-white rounded mt-3 pt-3 " th:switch="${company}" >
-  <h2 class=" text-center text-waning p-5"
-      th:case="null"> Login if you want to post !</h2>
+<body
+    class="img-fluid"
+    style="background-image: url('/images/bg.jpg'); object-fit: fill"
+>
+<nav class="navbar navbar-expand-sm navbar-light bg-info fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/home-page"
+    ><img
+        th:src="@{/images/logo.jpg}"
+        alt="Logo"
+        style="width: 40px"
+        class="rounded-pill"
+    /></a>
+    <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapsibleNavbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="collapsibleNavbar" class="collapse navbar-collapse">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/home-page}"
+          ><i class="fa-solid fa-house mx-2"></i>Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"
+          ><i class="fa-regular fa-user mx-2"></i>Candidate</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+              class="nav-link"
+              href="#!"
+          ><i class="fa-solid fa-paper-plane mx-2"></i>Post Job</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"
+          ><i class="fa-solid fa-list-check mx-2"></i>Post Management</a
+          >
+        </li>
+      </ul>
+    </div>
+    <h4
+        class="d-flex border border-success rounded shadow p-1 mx-3"
+        th:text="${company.get().getName()}"
+    >
+      <i class="fa-regular fa-building mx-2"></i>
+    </h4>
+  </div>
+</nav>
+<div class="container bg-white rounded mt-5 pt-3" th:switch="${company}">
+  <h2 class="text-center text-waning p-5" th:case="null">
+    Login if you want to post !
+  </h2>
   <div th:case="*">
-    <h1 class="text-white text-center rounded shadow bg-success p-3" th:text="${company.get().getName()}"></h1>
-    <form action="/post" method="post" class="form rounded shadow mt-5 p-3">
-      <div class="row mb-3">
-        <div class="col-2">
-          <label for="author" class=" text-end fw-bold form-control border-0">Author</label>
-        </div>
-        <div class="col-10">
-          <input type="text" class="form-control col-9" id="author"
-                 th:value="${company.get().getName()}" readonly>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-2">
-          <label for="title" class=" text-end fw-bold form-control border-0">Title</label>
-        </div>
-        <div class="col-10">
-          <input type="text" class="form-control col-9" id="title" placeholder="Title of post">
-        </div>
-      </div>
-      <div class="row mb-3" th:if="${jobSkillList.isEmpty()}">
-        <div class="col-2">
-          <label for="skillNotThing" class=" text-end fw-bold  form-control border-0">Job
-            Skill</label>
-        </div>
-        <div class="col-8">
-          <select name="skill" id="skillNotThing" class="form-control">
-            <option value="">No Skill available !</option>
-          </select>
-        </div>
-        <div class="col-2">
-          <a href="#" class="btn btn-outline-success form-control ">Add new skill</a>
-        </div>
-      </div>
-      <div class="row mb-3" th:if="${!jobSkillList.isEmpty()}">
-        <div class="col-2">
-          <label class=" text-end fw-bold  form-control border-0">Job Skill</label>
-        </div>
-        <div class="col-8">
-          <div class="form-check d-inline-block mx-3 col-auto" th:each="skill : ${jobSkillList}">
-            <input class="form-check-input" type="checkbox" value=""
-                   th:id="${skill.getId()}">
-            <label class="form-check-label"
-                   th:for="${skill.getId()}"
-                   th:text="${skill.getSkillName()}">
+    <h1
+        class="text-white text-center rounded shadow bg-success p-3"
+        th:text="${company.get().getName()}"
+    ></h1>
+    <form id="postForm" action="/post" method="post" class="form rounded shadow mt-5 p-3">
+      <fieldset class="form-group border rounded  mb-3 p-3 shadow">
+        <legend class="text-bg-success text-center rounded-5 mb-2">Post Content</legend>
+        <input type="hidden" name="companyId" th:value="${company.get().getId()}">
 
-            </label><label class="form-check-label"
-                   th:for="${skill.getId()}"
-                   th:text="${skill.getJobSkills().get(1).getSkillLevel().name()}">
-
-            </label>
+        <div class="row mb-3">
+          <div class="col-2">
+            <label for="author" class="text-end fw-bold form-control border-0"
+            >Author</label
+            >
+          </div>
+          <div class="col-10">
+            <input
+                type="text"
+                class="form-control col-9"
+                id="author"
+                th:value="${company.get().getName()}"
+                readonly
+            />
           </div>
         </div>
-        <div class="col-2">
-          <a href="#" class="btn btn-outline-success form-control ">Add new skill</a>
+        <div class="row mb-3">
+          <div class="col-2">
+            <label for="title" class="text-end fw-bold form-control border-0"
+            >Title</label
+            >
+          </div>
+          <div class="col-10">
+            <input
+                name="title"
+                type="text"
+                class="form-control col-9"
+                id="title"
+                required
+                placeholder="Title of post"
+            />
+          </div>
         </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-2">
-          <label for="startDate" class=" text-end fw-bold form-control border-0">Start Date</label>
+        <div class="row mb-3">
+          <div class="col-2">
+            <label
+                for="content"
+                class="text-end fw-bold form-control border-0"
+            >Content</label
+            >
+          </div>
+          <div class="col-10">
+              <textarea
+                  name="content"
+                  id="content"
+                  cols="10"
+                  rows="5"
+                  class="form-control"
+              ></textarea>
+          </div>
         </div>
-        <div class="col-10">
-          <input type="date" class="form-control col-9" id="startDate" >
+      </fieldset>
+
+      <fieldset class="form-group border rounded mb-3 p-3 shadow">
+        <legend class="text-bg-success text-center rounded-5 mb-2">Job Description</legend>
+        <div class="row mb-3">
+          <div class="col-2">
+            <label for="jobName" class="text-end fw-bold form-control border-0"
+            >Job Name</label
+            >
+          </div>
+          <div class="col-10">
+            <input
+                name="jobName"
+                type="text"
+                class="form-control col-9"
+                id="jobName"
+                required
+                placeholder="Name of job"
+            />
+          </div>
         </div>
-      </div><div class="row mb-3">
-        <div class="col-2">
-          <label for="endDate" class=" text-end fw-bold form-control border-0">End Date</label>
+        <div class="row mb-3" th:if="${skillList.isEmpty()}">
+          <div class="col-2">
+            <label
+                for="skillNotThing"
+                class="text-end fw-bold form-control border-0"
+            >Job Skill</label
+            >
+          </div>
+          <div class="col-8">
+            <select name="skill" id="skillNotThing" class="form-control">
+              <option value="">No Skill available !</option>
+            </select>
+          </div>
+          <div class="col-2">
+            <a href="#" class="btn btn-outline-success form-control"
+            >Add new skill</a
+            >
+          </div>
         </div>
-        <div class="col-10">
-          <input type="date" class="form-control col-9" id="endDate" placeholder="Date of end interview">
+        <div class="row mb-3" th:if="${!skillList.isEmpty()}">
+          <div class="col-2">
+            <label class="text-end fw-bold form-control border-0"
+            >Job Skill</label
+            >
+          </div>
+          <div class="col-8">
+            <div class="row">
+
+              <div
+                  class="form-check d-inline-block border rounded col-auto m-1 pb-3 skill-checkbox"
+                  th:each="skill : ${skillList}"
+              >
+
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    th:value="${skill.getId()}"
+                    th:id="${skill.getId()}"
+                    name="skills"
+
+                />
+                <label
+                    class="form-check-label "
+                    th:text="${skill.getSkillName()}"
+                >
+                </label>
+                <select class="form-select" th:name="${skill.getId()}"
+                        th:id="${skill.getId()}">
+                  <option th:each="level:${levels}" th:value="${level.name()}"
+                          th:text="${level.name()}"></option>
+                </select>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-2">
+            <a href="#" class="btn btn-outline-success form-control"
+            >Add new skill</a
+            >
+          </div>
         </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-2">
-          <label for="salary" class=" text-end fw-bold form-control border-0">Salary</label>
+        <div class="row mb-3">
+          <div class="col-2">
+            <label
+                for="description"
+                class="text-end fw-bold form-control border-0"
+            >Content</label
+            >
+          </div>
+          <div class="col-10">
+              <textarea
+                  name="description"
+                  id="description"
+                  cols="10"
+                  rows="5"
+                  class="form-control"
+                  placeholder="Description for your job"
+              ></textarea>
+          </div>
         </div>
-        <div class="col-10">
-          <input type="number" class="form-control col-9" id="salary" placeholder="Salary to start">
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-2">
-          <label for="content" class=" text-end fw-bold  form-control border-0">Content</label>
-        </div>
-        <div class="col-10">
-          <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
-        </div>
-      </div>
+      </fieldset>
       <div class="row mb-3 px-5">
-        <button type="submit" class="btn btn-outline-success ">Post</button>
+        <button type="submit" class="btn btn-outline-success">Post</button>
       </div>
-
-
     </form>
   </div>
-
 </div>
-
 </body>
+<script>
+  document.getElementById('postForm').addEventListener('submit', function(event) {
+    var checkboxes = document.querySelectorAll('.skill-checkbox input[type="checkbox"]');
+    var atLeastOneChecked = Array.from(checkboxes).some(function(checkbox) {
+      return checkbox.checked;
+    });
+
+    if (!atLeastOneChecked) {
+      alert('Job Skill Is Required !');
+      event.preventDefault();
+    }
+  });
+</script>
+
 </html>

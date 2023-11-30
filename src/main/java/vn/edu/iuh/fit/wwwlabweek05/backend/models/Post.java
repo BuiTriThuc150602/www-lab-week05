@@ -8,12 +8,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -22,29 +25,29 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Post {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "post_id")
   private long id;
+  @NonNull
   @Column(name = "title", nullable = false)
   private String title;
+  @NonNull
   @Column(name = "publish_at", nullable = false)
   private LocalDate publishAt;
+  @NonNull
   @Column(name = "content", nullable = false)
   private String content;
-  @OneToMany
-  private List<JobSkill> jobSkills;
+  @NonNull
+  @OneToOne
+  @JoinColumn(name = "job_id")
+  private Job job;
+  @NonNull
   @ManyToOne
   @JoinColumn(name = "company_id")
   private Company company;
-  @Column(name = "start_date")
-  private LocalDate startDate;
-  @Column(name = "end_date")
-  private LocalDate endDate;
-  @Column(name = "start_salary")
-  private double startSalary;
-
 
 }
